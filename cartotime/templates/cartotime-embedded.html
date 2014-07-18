@@ -1,0 +1,83 @@
+{% load leaflet_tags %}
+{% load timeline %}
+{% load cartotime %}
+
+<style>
+	.leaflet-container {  /* all maps */
+        height: 500px;
+    }
+
+    #specialbigmap {
+        height: 800px;
+    }
+
+    .storyjs-embed,
+    .sized-embed,
+    .storyjs-embed.sized-embed {
+    	border: none;
+    	border-radius: none;
+    }
+</style>
+
+<div class="row">
+	<div id="map-{{ timeline.pk }}">
+    {% leaflet_map "timelinemap" callback="window.map_init_basic" %}
+	</div>
+</div>
+
+<div class="row" id="timeline-{{ timeline.pk }}">
+	{% timeline %}
+</div>
+
+<script type="text/javascript">
+
+	// http://stackoverflow.com/a/17424238
+	var eventMarker = L.Marker.extend({
+		options: {
+			slideId: null
+		}
+	});
+
+    function map_init_basic(map, bounds) {
+
+    	var tmp_marker = null;
+
+	    //L.marker([44.85965, -0.55489]).addTo(map)
+	    //	.bindPopup("Cap Sciences");
+
+	    // without this, clicking on the map without first clicking on
+	    // the timeline will not slide it… Ho boy… Thanks TimelineJS.
+    	if (!window.location.hash) {
+	    	window.location.hash = 0;
+    	}
+
+	    {% if timeline.center_on %}
+
+	    map.panTo({{ timeline.center_on }});
+	    //L.marker({{ timeline.center_on }}).addTo(map)
+	    //		.bindPopup("{{ timeline.headline }}");
+
+	    {% endif %}
+
+	    function focusEvent(e) {
+	    	var ll = this.getLatLng();
+	    	window.location.hash = this.options.slideId;
+	    }
+
+	    {% for event in timeline.timelineevent_set|by_start_date %}
+	    	{% if event.location %}
+
+	    		tmp_marker = new eventMarker({{ event.location }}, {
+	    			eventId: {{ event.pk }},
+	    			slideId: {{ forloop.counter }}
+	    		});
+
+	    		console.log('Event {{ event.headline }} is slide ID #{{forloop.counter}}.');
+
+				tmp_marker.addTo(map)
+			    	.bindPopup("<h4>{{ event.headline }}</h4><br />{{ event.text|truncatewords:20 }}")
+			    	.on('click', focusEvent);
+	    	{% endif %}
+	    {% endfor %}
+	}
+</script>

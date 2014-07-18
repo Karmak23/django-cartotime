@@ -1,0 +1,16 @@
+{% load bootstrap3 %}
+{% load leaflet_tags %}
+<html>
+<head>
+<title>{% block page_title %}{% endblock page_title %}</title>
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+{% leaflet_js %}
+{% leaflet_css %}
+</head>
+<body>
+<div class="container">
+{% block body %}{% endblock body %}
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+<div>&nbsp;</div>
+</div>
+<div class="row">
+<div>&nbsp;</div>
+</div>
+<div class="row">
+<div>&nbsp;</div>
+</div>
+<div class="row">
+<div>&nbsp;</div>
+</div>
+
+<div class="row">
+	<div class="jumbotron col-lg-6 col-lg-offset-3">
+		<h3>Cartes &amp; frises</h3>
+		<ul>
+		{% for timeline in object_list %}
+			<li><a href="{% url "cartotimeview" timeline.pk %}">{{ timeline }}</a></li>
+		{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock body %}
