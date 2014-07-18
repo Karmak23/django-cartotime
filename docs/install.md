@@ -1,11 +1,27 @@
 
-mkvirtualenv cartotime --python=/usr/bin/python2.7
+# Installation sommaire de cartotime
 
-pip install django-leaflet django-bootstrap3 django-geojson
-pip install -e git+https://github.com/Karmak23/django-timelinejs.git#egg=Django_TimelineJS-master
+Création d'un environnement virtuel pour cloisonner le projet :
 
-mkdir cartotime
+	pip install virtualwrapper
+	mkvirtualenv cartotime
 
-git init .
+Installation du projet :
 
-django-admin startproject cartotime 
+	git clone github.com:CapSciences/django-cartotime
+	cd django-cartotime
+	pip install -r requirements.txt
+
+Création de la base de données initiale (SQLite3, par défaut) :
+
+	cd cartotime
+	./manage syncdb
+	# création de l'utilisateur "admin"…
+
+Lancement du server web (ne pas trop le charger, sinon passer à gunicorn ou µWSGI) :
+
+	./manage runserver 0.0.0.0:8000
+
+L'interface est accessible sur http://localhost:8000/
+
+L'interface d'administration de Django est à http://localhost:8000/admin/
