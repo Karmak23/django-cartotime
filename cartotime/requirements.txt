@@ -1,0 +1,11 @@
+Django==1.6.5
+-e git+git@github.com:Karmak23/django-timelinejs.git#egg=Django_TimelineJS-master
+django-bootstrap3==4.8.2
+django-geojson==2.5.0
+django-grappelli==2.5.3
+django-jsonfield==0.9.13
+django-leaflet==0.13.7
+ipython==2.1.0
+jsonfield==0.9.22
+six==1.7.3
+wsgiref==0.1.2
