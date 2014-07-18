@@ -32,11 +32,14 @@
 <script type="text/javascript">
 	var RedIcon = L.Icon.Default.extend({ options: {
         iconSize:     [38, 62],
-        iconAnchor:   [18, 62]
+        iconAnchor:   [18, 62],
+        popupAnchor:  [2, -59]
 	}});
 	var redIcon = new RedIcon();
 
-	var BlueIcon = L.Icon.Default.extend({options: {}});
+	var BlueIcon = L.Icon.Default.extend({options: {
+        popupAnchor:  [2, -59]
+	}});
 	var blueIcon = new BlueIcon();
 
 	// http://stackoverflow.com/a/17424238
