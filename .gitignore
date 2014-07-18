@@ -1,0 +1,16 @@
+
+*~
+*.bak
+*.tmp
+
+*.pyc
+*.pyo
+*.pye
+
+pid.lockfile
+*.lock
+*.pid
+.~lock*
+
+.DS_Store
+Thumbs.db
