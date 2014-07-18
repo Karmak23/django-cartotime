@@ -30,6 +30,14 @@
 </div>
 
 <script type="text/javascript">
+	var RedIcon = L.Icon.Default.extend({ options: {
+        iconSize:     [38, 62],
+        iconAnchor:   [18, 62]
+	}});
+	var redIcon = new RedIcon();
+
+	var BlueIcon = L.Icon.Default.extend({options: {}});
+	var blueIcon = new BlueIcon();
 
 	// http://stackoverflow.com/a/17424238
 	var eventMarker = L.Marker.extend({
@@ -38,9 +46,41 @@
 		}
 	});
 
+	var local_map = null;
+	var markers = Array();
+
+	var hashHasChanged = function(e) {
+
+		slideId = parseInt(window.location.hash[1]);
+
+	    {% if timeline.center_on %}
+
+		if (slideId == 0) {
+		    local_map.panTo({{ timeline.center_on }});
+		}
+
+	    {% endif %}
+
+		//console.debug("Hash has changed to " + slideId);
+
+		_.each(markers, function(marker) {
+			if (marker.options.slideId == slideId) {
+				marker.setIcon(redIcon);
+			    local_map.panTo(marker.getLatLng());
+
+			} else {
+				marker.setIcon(blueIcon);
+			}
+		});
+	}
+
+    window.addEventListener("hashchange", hashHasChanged, false);
+
     function map_init_basic(map, bounds) {
 
     	var tmp_marker = null;
+
+    	local_map = map;
 
 	    //L.marker([44.85965, -0.55489]).addTo(map)
 	    //	.bindPopup("Cap Sciences");
@@ -68,11 +108,14 @@
 	    	{% if event.location %}
 
 	    		tmp_marker = new eventMarker({{ event.location }}, {
+	    			icon: blueIcon,
 	    			eventId: {{ event.pk }},
 	    			slideId: {{ forloop.counter }}
 	    		});
 
 	    		console.log('Event {{ event.headline }} is slide ID #{{forloop.counter}}.');
+
+	    		markers.push(tmp_marker);
 
 				tmp_marker.addTo(map)
 			    	.bindPopup("<h4>{{ event.headline }}</h4><br />{{ event.text|truncatewords:20 }}")
