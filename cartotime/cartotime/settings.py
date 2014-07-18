@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     #'djgeojson',
     'bootstrap3',
+    'underscore',
     'leaflet',
     'timelinejs',
     'cartotime.common'
