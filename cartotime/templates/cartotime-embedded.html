@@ -127,5 +127,9 @@
 			    	.on('click', focusEvent);
 	    	{% endif %}
 	    {% endfor %}
+
+	    if(window.location.hash) {
+	    	hashHasChanged(null);
+	    }
 	}
 </script>
