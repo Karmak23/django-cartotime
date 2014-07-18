@@ -66,10 +66,12 @@
 		_.each(markers, function(marker) {
 			if (marker.options.slideId == slideId) {
 				marker.setIcon(redIcon);
+				marker.openPopup();
 			    local_map.panTo(marker.getLatLng());
 
 			} else {
 				marker.setIcon(blueIcon);
+				marker.closePopup();
 			}
 		});
 	}
