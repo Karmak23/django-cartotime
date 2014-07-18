@@ -16,9 +16,22 @@ Chaque Timeline peut contenir autant d'évènements que souhaité.
 La carte peut être centrée sur une localisation arbitraire si l'attribut `center_on` de la Timeline contient des coordonnées GPS. Par exemple, pour center sur Cap Sciences, saisir « [44.85965, -0.55489] ». Attention, les virgules et points sont importants, c'est la syntaxe anglaise.
 
 
+
+# Intégration sur un site externe
+
+Ça consiste à inclure l’adresse de la page d'une carto dans un iframe, comme dans l’exemple suivant :
+
+    <iframe src=”http://cartotime.oliviercortes.com/cartotime/NNN”
+    	width=”100%” height=”500px”></iframe>
+
+Vous pouvez personnaliser les valeurs `width` et `height`. Remplacez `NNN` par le numéro (identifiant, sous forme de nombre entier) de la carte, tel que vous l'avez dans l'interface d'administration Django.
+
+
+
 # ATTENTION
 
 - Si un évènement a des coordonnées, alors tous autres doivent en avoir aussi ; sinon il y aura un décallage dans l'ordre des diapositive par rapport à la synchronisation avec la carte, et le rendu semblera désordonné à l'utilisateur. En cas de doute, mettre des coordonnées factices aux projets qui n'en ont pas, par exemple [0, 0] ou les coordonnées de la capitale du pays d'émergence de l'évènement.
+
 
 
 # Bugs connus
